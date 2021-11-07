@@ -15,13 +15,13 @@ public class EmailService {
 	@Autowired
 	private JavaMailSender javaMailSender;
 
-	public void sendMail(User user, HttpServletRequest httpServletRequest) {
+	public void sendMail(User user, HttpServletRequest httpServletRequest,String subject) {
 		String url = httpServletRequest.getScheme() + "://" + httpServletRequest.getServerName() + ":"
 				+ httpServletRequest.getServerPort() + "/" + user.getToken() + "/activate/account";
 
 		SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
 		simpleMailMessage.setTo(user.getEmail());
-		simpleMailMessage.setSubject("Activate Account");
+		simpleMailMessage.setSubject(subject);
 		simpleMailMessage.setText(url);
 		javaMailSender.send(simpleMailMessage);
 	}

@@ -33,33 +33,57 @@
 <link rel="stylesheet" type="text/css" href="css/util.css">
 <link rel="stylesheet" type="text/css" href="css/main.css">
 <!--===============================================================================================-->
-
+<link rel="stylesheet"
+	href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
+<link rel="stylesheet"
+	href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.rtl.min.css" />
+<!-- Default theme -->
+<link rel="stylesheet"
+	href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.rtl.min.css" />
+<!-- Semantic UI theme -->
+<link rel="stylesheet"
+	href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.rtl.min.css" />
+<script
+	src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <script>
 	function saveUserInformation() {
 
-		var inputPayload = {
-			"firstName" : $("#firstName").val(),
-			"lastName" : $("#lastName").val(),
-			"age" : $("#age").val(),
-			"contact" : $("#contactId").val(),
-			"password" : $("#password").val(),
-			"email" : $("#emailId").val()
-		}
-		var inputPayloadString = JSON.stringify(inputPayload);
-		jQuery.ajax({
-			type : 'POST',
-			cache : true,
-			async : false,
-			contentType : 'application/json',
-			dataType : 'json',
-			url : location.origin + "/saveUserInfo",
-			data : inputPayloadString,
-			success : function(data) {
-				clearAllFormData();
-				window.location.assign(location.origin + "/signupCompletion")
+		if ($("#firstName").val() != '' || $("#age").val() != ''
+				|| $("#contactId").val() != '' || $("#password").val() != ''
+				|| $("#emailId").val() != '') {
+
+			var inputPayload = {
+				"firstName" : $("#firstName").val(),
+				"lastName" : $("#lastName").val(),
+				"age" : $("#age").val(),
+				"contact" : $("#contactId").val(),
+				"password" : $("#password").val(),
+				"email" : $("#emailId").val()
 			}
-		});
+			var inputPayloadString = JSON.stringify(inputPayload);
+			jQuery.ajax({
+				type : 'POST',
+				cache : true,
+				async : false,
+				contentType : 'application/json',
+				dataType : 'json',
+				url : location.origin + "/saveUserInfo",
+				data : inputPayloadString,
+				success : function(data) {
+					clearAllFormData();
+					window.location.assign(location.origin
+							+ "/signupCompletion")
+				},
+				error : function(data) {
+					debugger;
+					alertify.error(data.responseJSON.message);
+				}
+			});
+
+		}
 
 	}
 
@@ -71,6 +95,12 @@
 		$("#password").val("");
 		$("#emailId").val("")
 	}
+
+	$(document).ready(function() {
+		$('#button').click(function(e) {
+			e.preventDefault();
+		});
+	});
 </script>
 
 
@@ -132,7 +162,8 @@
 					</div>
 
 					<div class="container-login100-form-btn">
-						<button class="login100-form-btn" onclick="saveUserInformation()">Register</button>
+						<button class="login100-form-btn" onclick="saveUserInformation()">Register
+						</button>
 					</div>
 
 					<div class="text-center w-full p-t-23">

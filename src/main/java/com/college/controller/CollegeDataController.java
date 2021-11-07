@@ -22,5 +22,10 @@ public class CollegeDataController {
 	public ResponseEntity<User> saveUserInfo(@RequestBody User user, HttpServletRequest httpServletRequest) {
 		return new ResponseEntity<User>(userService.saveUserInfo(user, httpServletRequest), HttpStatus.CREATED);
 	}
+	
+	@PostMapping("/sendMail")
+	public ResponseEntity<User> sendMail(@RequestBody User user, HttpServletRequest httpServletRequest) {
+		return new ResponseEntity<User>(userService.sendMail(user, httpServletRequest), HttpStatus.OK);
+	}
 
 }
