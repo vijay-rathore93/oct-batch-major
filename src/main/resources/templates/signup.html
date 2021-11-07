@@ -33,6 +33,58 @@
 <link rel="stylesheet" type="text/css" href="css/util.css">
 <link rel="stylesheet" type="text/css" href="css/main.css">
 <!--===============================================================================================-->
+
+
+<script>
+	function saveUserInformation() {
+
+		var inputPayload = {
+			"firstName" : $("#firstName").val(),
+			"lastName" : $("#lastName").val(),
+			"age" : $("#age").val(),
+			"contact" : $("#contactId").val(),
+			"password" : $("#password").val(),
+			"email" : $("#emailId").val()
+		}
+		var inputPayloadString = JSON.stringify(inputPayload);
+		jQuery.ajax({
+			type : 'POST',
+			cache : true,
+			async : false,
+			contentType : 'application/json',
+			dataType : 'json',
+			url : location.origin + "/saveUserInfo",
+			data : inputPayloadString,
+			success : function(data) {
+				clearAllFormData();
+				window.location.assign(location.origin + "/signupCompletion")
+			}
+		});
+
+	}
+
+	function clearAllFormData() {
+		$("#firstName").val("");
+		$("#lastName").val("");
+		$("#age").val("");
+		$("#contactId").val("");
+		$("#password").val("");
+		$("#emailId").val("")
+	}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
 </head>
 <body>
 
@@ -44,42 +96,43 @@
 
 					<div class="wrap-input100 rs1 validate-input"
 						data-validate="FirstName is required">
-						<input class="input100" type="text" name="firstName"> <span
-							class="label-input100">First Name</span>
+						<input class="input100" type="text" name="firstName"
+							id="firstName"> <span class="label-input100">First
+							Name</span>
 					</div>
 
 
 					<div class="wrap-input100 rs2">
-						<input class="input100" type="password" name="pass"> <span
-							class="label-input100">Last Name</span>
+						<input class="input100" type="text" name="pass" id="lastName">
+						<span class="label-input100">Last Name</span>
 					</div>
 					<div class="wrap-input100 rs1 validate-input"
 						data-validate="Age is required">
-						<input class="input100" type="text" name="age"> <span
+						<input class="input100" type="text" name="age" id="age"> <span
 							class="label-input100">Age</span>
 					</div>
 
 
 					<div class="wrap-input100 rs2 validate-input"
 						data-validate="Contact is required">
-						<input class="input100" type="text" name="contact"> <span
-							class="label-input100">Contact</span>
+						<input class="input100" type="text" name="contact" id="contactId">
+						<span class="label-input100">Contact</span>
 					</div>
 					<div class="wrap-input100 rs1 validate-input"
 						data-validate="Email is required">
-						<input class="input100" type="text" name="email"> <span
-							class="label-input100">Email</span>
+						<input class="input100" type="text" name="email" id="emailId">
+						<span class="label-input100">Email</span>
 					</div>
 
 
 					<div class="wrap-input100 rs2 validate-input"
 						data-validate="Password is required">
-						<input class="input100" type="password" name="pass"> <span
-							class="label-input100">Password</span>
+						<input class="input100" type="password" name="pass" id="password">
+						<span class="label-input100">Password</span>
 					</div>
 
 					<div class="container-login100-form-btn">
-						<button class="login100-form-btn">Register</button>
+						<button class="login100-form-btn" onclick="saveUserInformation()">Register</button>
 					</div>
 
 					<div class="text-center w-full p-t-23">
