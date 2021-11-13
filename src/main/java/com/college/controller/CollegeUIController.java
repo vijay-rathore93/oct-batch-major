@@ -46,6 +46,11 @@ public class CollegeUIController {
 		return "signupCompletion";
 	}
 
+	@GetMapping("/reset")
+	public String getReset() {
+		return "reset";
+	}
+
 	@GetMapping("/{token}/activate/account")
 	public String getSuccessPage(@PathVariable("token") String token) {
 		Optional<User> user = userRepo.findByToken(token);
